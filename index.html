@@ -10,6 +10,7 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -20,93 +21,105 @@
     }
 
     body {
-      display: -ms-flexbox;
       display: flex;
       -ms-flex-align: center;
       align-items: center;
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: #684b5d91;
+      background: url(img/cover_back.png);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .imagen {
+      margin-top: -50%;
     }
 
     img {
-      max-width: 100%;
-      object-fit: cover;
-      margin-bottom: 10px;
+      width: 100px;
+      height: 100px;
     }
 
-    .boxsombra {
-      background-color: #ffffff;
-      max-width: 400px;
-      padding: 3em;
-      margin: auto;
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      opacity: 0.95;
       border-radius: 10px;
-      box-shadow: 10px 10px rgb(170, 166, 166);
+      width: 400px;
+      padding: 60px 60px;
+      background: -webkit-linear-gradient(top, #f9d5e5, #eeac99, #e06377, #eeac99);
+      box-shadow: 0 15px 25px crimson;
+      border: 3px solid #f1f1f1;
     }
 
-    input[type=text], [type=password] {
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      color: grey;
-      font-size: 16px;
+    #emailHelp {
+      color: darkslategrey;
+    }
+
+    .text-muted {
+      display: none;
+    }
+
+    #error-usuario, #error-contraseña {
+      color: red;
+    }
+
+    input[type=email],
+    [type=password] {
+      color: rgb(109, 101, 101);
+      font-size: 20px;
       background-color: white;
-      padding: 20px 20px;
+      padding: 30px 30px;
     }
 
-    button {
-      background-color: #7e7b7b;
+    .btn-primary {
+      background-color: #444343;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 20px;
-      padding: 10px 50px;
+      padding: 15px 30px;
+      margin-top: 10px;
+      margin-bottom: 5px;
     }
-
-    .label {
-      margin: 8px 0;
-      border: 3px #555;
-    }
-
-    .signin {
-      width: 100%;
-      max-width: 330px;
-      padding: 15px;
-      margin: auto; 
-    }
-
-    #error-nombre, #error-contraseña, #ok{
-      color: red;
-    }
-
   </style>
 </head>
 
-<body class="text-center">
-  <div class="container p-5">
-    <div class="boxsombra">
-      <img src=img/login.png>
-
+<body>
+  <div class="container text-center">
+    <div class="login-container text-center">
       <form>
-        <h1>Inicia sesión</h1>
-        <label></label>
-        <input type="text" class="campos" name="usuario" placeholder="usuario" id="nombre"
-          onblur="validar1(this.value)" />
-        <div id="error-nombre"></div><br>
-        <!----validación nombre-->
-
-        <label></label>
-        <input type="password" class="campos" name="contraseña" placeholder="contraseña" id="contraseña"
-          onblur="validar2(this.value)" />
-        <div id="error-contraseña"></div><br>
-
-        <button type="button" value="Enviar" onclick="newDoc()">Ingresar</button>
+        <div class="form-group">
+          <input type="email" class="form-control" id="usuario" aria-describedby="emailHelp"
+            placeholder="Usuario" autocomplete="off" onblur="validar1(this.value)">
+          <div id="error-usuario"></div><br>
+          <small class="form-text text-muted">Ingrese Usuario</small>
+          <small id="emailHelp">Tu mail no será compartido con nadie.</small>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="contraseña" placeholder="Contraseña" autocomplete="off"
+            onblur="validar2(this.value)">
+          <div id="error-contraseña"></div><br>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
+        </div>
+        <button type="button" value="Enviar" class="btn btn-primary" onclick="newDoc()"><i class="fas fa-sign-in-alt"></i>
+          Ingresa</button>
         <div id="ok"></div>
-        <!----redireccionar al index al hacer click en el button-->
       </form>
     </div>
+  </div>
   </div>
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>
+
 </html>
