@@ -1,5 +1,7 @@
 var product_info = {};
 var comentarios = {};
+var relacionados = [];
+var products = {};
 
 //descripción productos
 function showImagesGallery(array) {
@@ -22,13 +24,13 @@ function showImagesGallery(array) {
 }
 
 //function stars(comentarios) {
-    //var HTML = ""; // Start the HTML string for concatenation
-    //comentarios.forEach(function (ob) {
-        //for (var i = 0; i < 5; i++) {  // We need 5 stars
-            //var icoClass = i < ob.score ? "fa fa-star" : "fa fa-star-o"; // full or empty star?
-            //HTML += "<i class='" + icoClass + "'></i>"; // concatenate stars
-        //}
-    //})
+//var HTML = ""; // Start the HTML string for concatenation
+//comentarios.forEach(function (ob) {
+//for (var i = 0; i < 5; i++) {  // We need 5 stars
+//var icoClass = i < ob.score ? "fa fa-star" : "fa fa-star-o"; // full or empty star?
+//HTML += "<i class='" + icoClass + "'></i>"; // concatenate stars
+//}
+//})
 //};
 
 
@@ -68,16 +70,60 @@ function showComentarios(array) {
     }, false);
 })();
 
+//productos relacionados
+
+function productosRelacionados(relacionados) {
+
+    let htmlContentToAppend = "";
+
+    htmlContentToAppend += `
+            <p class="mb-3">`  + relacionados.relatedProducts + `</p>
+        `
+
+    document.getElementById("productosRelacionados").innerHTML = htmlContentToAppend;
+}
+
+function showProductsList() {
+
+    let htmlContentToAppend = "";
+
+    for (let i = 0; i < products.length; i++) {
+        let product = products[i];
+        if (i=== (1 && 3)){ 
+
+            htmlContentToAppend += `
+        <a href="product-info.html" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="col-3">
+                    <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
+                </div>
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1">`+ product.name + `</h4>
+                        <small class="text-muted"> Precio: ` + product.cost + ` USD </br>
+                        ` + product.soldCount + ` vendidos </small>                         
+                    </div>
+                    <p class="mb-1">` + product.description + `</p>
+                </div>
+            </div>
+        </a>
+        `
+        }
+
+        document.getElementById("pro-list-container").innerHTML = htmlContentToAppend;
+    }
+}
+
+
+
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
-        //getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
         if (resultObj.status === "ok") {
             product_info = resultObj.data;
-            comentarios = resultObj.data;
 
             let product_infoNameHTML = document.getElementById("product_infoName");
             let product_infocategoryHTML = document.getElementById("product_infocategory");
@@ -92,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
             product_infoSoldCountHTML.innerHTML = product_info.soldCount;
 
 
-
             //Muestro las imagenes en forma de galería
             showImagesGallery(product_info.images);
         }
@@ -102,7 +147,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
             comentarios = resultObj.data;
             //Muestro las categorías ordenadas
             showComentarios(comentarios);
-
         }
     });
+
+    getJSONData(PRODUCTS_URL).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            products = resultObj.data;
+            //Muestro las categorías ordenadas
+            showProductsList();
+        }
+    });
+
 });
