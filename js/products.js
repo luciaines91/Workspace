@@ -42,24 +42,22 @@ function showProductsList() {
         let product = currentProductsArray[i];
 
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){ //Filtro por precio del producto 
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) { //Filtro por precio del producto 
 
             htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
+            <div class="col-md-3">
+            <a href="product-info.html" class="list-group-item-action">
+                    <div class="card h-100 item-Height" style="width: 18rem;">
                         <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
+                        <div class="card-body max-height:40%">
                             <h4 class="mb-1">`+ product.name + `</h4>
                             <small class="text-muted"> Precio: ` + product.cost + ` USD </br>
-                            ` + product.soldCount + ` vendidos </small>                         
+                            ` + product.soldCount + ` vendidos </small>
+                            <p class="mb-1">` + product.description + `</p>                         
                         </div>
-                        <p class="mb-1">` + product.description + `</p>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
             `
         }
 
@@ -67,10 +65,10 @@ function showProductsList() {
     }
 }
 
-function sortAndShowProducts(sortCriteria, productsArray){
+function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
 
-    if(productsArray != undefined){
+    if (productsArray != undefined) {
         currentProductsArray = productsArray;
     }
 
