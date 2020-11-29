@@ -13,30 +13,27 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
   <nav class="site-header sticky-top py-1 bg-dark">
-    <input type="search" id="busqueda" name="as_word" placeholder="Ingresa tu búsqueda" autocomplete="off">
-    <button onclick="buscar()" type="submit" class="boton busqueda">Buscar</button>
-      <div role="img" aria-label="Buscar" class="nav-icon-search"></div>
-    </button>
     <div class="container d-flex flex-column flex-md-row justify-content-between">
       <a class="py-2 d-none d-md-inline-block" href="index1.html">Inicio</a>
       <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <div class="dropdown">
-        <button id="keyNombre" class="py-2 d-none d-md-inline-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button> <!-- Muestro nombre del usuario -->
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div class="btn-group">
+        <button type="button" id="keyNombre" class="btn btn-danger dropdown-toggle fas fa-user" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+        </button><!-- Muestro nombre del usuario -->
+        <div class="dropdown-menu">
           <a class="dropdown-item" href="cart.html">Mi carrito</a>
           <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
           <a class="dropdown-item" href="index.html">Cerrar sesión</a>
         </div>
-      </div>     
+      </div>
     </div>
   </nav>
   <main role="main">
@@ -125,3 +122,4 @@
 </body>
 
 </html>
+<!-- autocomplete="off" -->

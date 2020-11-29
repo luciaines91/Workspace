@@ -11,6 +11,7 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -46,12 +47,11 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <div class="dropdown">
-        <button id="keyNombre" class="py-2 d-none d-md-inline-block" type="button" data-toggle="dropdown"
+      <div class="btn-group">
+        <button type="button" id="keyNombre" class="btn btn-danger dropdown-toggle fas fa-user" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button> <!-- Muestro nombre del usuario -->
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        </button><!-- Muestro nombre del usuario -->
+        <div class="dropdown-menu">
           <a class="dropdown-item" href="cart.html">Mi carrito</a>
           <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
           <a class="dropdown-item" href="index.html">Cerrar sesión</a>
@@ -65,43 +65,49 @@
         <div class="text-center m-5">
           <h2>Regístrate</h2>
         </div>
-        <form class="m-3">
+        <form class="m-3 needs-validation" novalidate>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="nombres">Nombres</label>
-              <input type="text" class="form-control" id="nombre">
+              <input type="text" class="form-control" id="nombre" autocomplete="off" required>
+              <div class="invalid-feedback">Debe ingresar nombre</div>
             </div>
             <div class="form-group col-md-6">
               <label for="apellidos">Apellidos</label>
-              <input type="text" class="form-control" id="apellido">
+              <input type="text" class="form-control" id="apellido" autocomplete="off" required>
+              <div class="invalid-feedback">Debe ingresar apellido</div>
             </div>
           </div>
           <div class="form-group">
             <label for="edad">Edad</label>
-            <input type="number" class="form-control" id="edad">
+            <input type="number" class="form-control" id="edad" autocomplete="off" required>
+            <div class="invalid-feedback">Debe ingresar edad</div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" id="email" autocomplete="off" required>
+            <div class="invalid-feedback">Debe ingresar email</div>
           </div>
           <div class="form-group">
             <label for="contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="contraseña">
+            <input type="password" class="form-control" id="contraseña" autocomplete="off" required>
+            <div class="invalid-feedback">Debe ingresar contraseña</div>
           </div>
           <div class="form-group">
             <label for="contraseña">Teléfono de contacto</label>
-            <input type="number" class="form-control" id="contacto">
+            <input type="number" class="form-control" id="contacto" autocomplete="off" required>
+            <div class="invalid-feedback">Debe ingresar un teléfono</div>
           </div>
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck">
+              <input class="form-check-input" type="checkbox" id="gridCheck" autocomplete="off" required>
               <label class="form-check-label" for="gridCheck">
                 Acepto condiciones y términos
               </label>
+              <div class="invalid-feedback">Debe aceptar las condiciones</div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" onclick="guardarDatos()">Guardar Datos</button>
-          <button type="button" class="btn btn-primary" onclick="mostrarDatos()">Mostrar datos</button>
+          <button type="submit" class="btn btn-primary" onclick="guardarDatos()">Guardar Datos</button>
         </form>
       </div>
     </div>

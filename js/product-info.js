@@ -23,16 +23,6 @@ function showImagesGallery(array) {
     }
 }
 
-//function stars(comentarios) {
-//var HTML = ""; // Start the HTML string for concatenation
-//comentarios.forEach(function (ob) {
-//for (var i = 0; i < 5; i++) {  // We need 5 stars
-//var icoClass = i < ob.score ? "fa fa-star" : "fa fa-star-o"; // full or empty star?
-//HTML += "<i class='" + icoClass + "'></i>"; // concatenate stars
-//}
-//})
-//};
-
 
 //comentarios
 function showComentarios(array) {
@@ -83,13 +73,12 @@ function productosRelacionados(relacionados) {
     document.getElementById("productosRelacionados").innerHTML = htmlContentToAppend;
 }
 
-function showProductsList() {
+function showProductsList(products) {
 
     let htmlContentToAppend = "";
-
-    for (let i = 0; i < products.length; i++) {
+    for (let i = 0; i < products.length; i++){
         let product = products[i];
-        if (i=== (1 && 3)){ 
+        if( i == 1 || i == 3)
 
             htmlContentToAppend += `
         <a href="product-info.html" class="list-group-item list-group-item-action">
@@ -112,9 +101,6 @@ function showProductsList() {
 
         document.getElementById("pro-list-container").innerHTML = htmlContentToAppend;
     }
-}
-
-
 
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -154,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             products = resultObj.data;
             //Muestro las categorías ordenadas
-            showProductsList();
+            showProductsList(products);
         }
     });
 

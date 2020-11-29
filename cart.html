@@ -28,6 +28,11 @@
         font-size: 3.5rem;
       }
     }
+
+    #errorenvio,
+    #costoAviso {
+      color: red;
+    }
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -42,13 +47,13 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <div class="dropdown">
-        <button id="keyNombre" class="py-2 d-none d-md-inline-block" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>
-        </button> <!-- Muestro nombre del usuario -->
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div class="btn-group">
+        <button type="button" id="keyNombre" class="btn btn-danger dropdown-toggle fas fa-user" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+        </button><!-- Muestro nombre del usuario -->
+        <div class="dropdown-menu">
           <a class="dropdown-item" href="cart.html">Mi carrito</a>
-          <a class="dropdown-item" href="#">Ver mi perfil</a>
+          <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
           <a class="dropdown-item" href="index.html">Cerrar sesión</a>
         </div>
       </div>
@@ -71,64 +76,77 @@
         <tbody id="cart-list-container">
         </tbody>
       </table>
-      <div class="subtotal text-right font-weight-bold" id="subtotal">Subtotal $ <span class="text-muted text-secondary" id="costoSubtotal"></span></div>
-      <div class="envío text-right font-weight-bold" id="envío">Envío $ <span class="text-muted text-secondary" id="costoEnvio"></span></div> 
-      <div class="total text-right font-weight-bold" id="total">Total $ <span class="text-muted text-secondary" id="costoTotal"></span></div>
+      <div class="subtotal text-right font-weight-bold" id="subtotal">Subtotal $ <span class="text-muted text-secondary"
+          id="costoSubtotal"></span></div>
+      <div class="envío text-right font-weight-bold" id="envío">Envío $ <span class="text-muted text-secondary"
+          id="costoEnvio"></span></div>
+      <div class="total text-right font-weight-bold" id="total">Total $ <span class="text-muted text-secondary"
+          id="costoTotal"></span></div>
+      <p id="costoAviso"></p>
     </div>
 
     <div class="container col-lg-8 mb-4 text-left">
       <h4 class="font-weight-bold">Método de Envío</h4>
       <h5 class="font-weight-bold mt-lg-5">Dirección de Envío</h5>
-      <form name="formdatos">
-        <div class="form-row">
+      <form name="formdatos" class="needs-validation" novalidate>
+        <div class="form-row needs-validation" action="" method="POST" novalidate>
           <div class="form-group col-md-4">
             <label for="calle">Calle</label>
-            <input type="text" name="datos" class="form-control" id="calle" placeholder="Ingresa la calle">
-            <div class="invalid-feedback"></div>
+            <input type="text" name="datos" class="form-control" id="calle" placeholder="Ingresa la calle"
+              autocomplete="off" required>
+            <div class="invalid-feedback"> Ingrese calle</div>
           </div>
           <div class="form-group col-md-4">
             <label for="numero">Número</label>
-            <input type="numero" name="datos" class="form-control" id="numero" placeholder="Ingresa el número">
-            <div class="invalid-feedback"></div>
+            <input type="number" name="datos" class="form-control" id="numero" placeholder="Ingresa el número"
+              autocomplete="off" required>
+            <div class="invalid-feedback">Ingrese número de puerta</div>
           </div>
           <div class="form-group col-md-8">
             <label for="esquina">Esquina</label>
-            <input type="text" name="datos" class="form-control" id="esquina" placeholder="Ingresa la esquina">
-            <div class="invalid-feedback"></div>
+            <input type="text" name="datos" class="form-control" id="esquina" placeholder="Ingresa la esquina"
+              autocomplete="off" required>
+            <div class="invalid-feedback"> Ingrese esquina</div>
           </div>
           <div class="form-group col-md-8">
             <label for="exampleFormControlSelect1">País</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option disabled selected>Selecciona el país</option>
+            <select class="form-control" id="exampleFormControlSelect1" required>
+              <option placeholder="Selecciona el país"></option>
               <option name="datos">Uruguay</option>
               <option name="datos">Brasil</option>
               <option name="datos">Argentina</option>
               <option name="datos">Chile</option>
               <option name="datos">Colombia</option>
             </select>
-            <div class="invalid-feedback" id="errordatos"></div>
+            <div class="invalid-feedback"> Ingrese país</div>
           </div>
-          <div disabled selected value="0" name ="tipoEnvio" class="form-group col-md-8 custom-control custom-radio" id="envio" name="envio">
+          <div disabled selected value="0" name="tipoEnvio" class="form-group col-md-8 custom-control custom-radio"
+            id="envio" name="envio">
             <h5 class="font-weight-bold mt-lg-5">Tipo de Envío</h5>
             <input type="radio" id="premium" name="envio" value="premium">
-            <label for="premium">Premium (2-5 días)</label><br> 
+            <label for="premium">Premium (2-5 días)</label><br>
             <input type="radio" id="express" name="envio" value="express">
             <label for="express">Express (5-8 días)</label><br>
             <input type="radio" id="standard" name="envio" value="standard">
             <label for="standard">Standard (12-15 días)</label></br>
-          <p id="errorenvio"></p>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="calcularEnvio(); calcularTotal(); validateForm()">Elegir</button>
+            <p id="errorenvio"></p>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+              onclick="calcularEnvio(); calcularTotal(); validarEnvio()">Elegir</button>
           </div></br></br>
+
           <!-- Botón forma de pago -->
           <div class="button-row col-md-12">
-          <button type="button" class="btn btn-secondary col-md-8" id="show">
-            Forma de pago
-          </button></br>
-          <button class="btn btn-success col-md-8" onclick="validar()">Confirmar Compra</button>
+            <button type="button" class="btn btn-secondary col-md-8" id="show">
+              Forma de pago
+            </button></br>
+            <button type="submit" class="btn btn-success col-md-8" onclick="validarEnvio(); validarDatos()">Confirmar
+              Compra</button>
           </div>
+        </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -145,7 +163,7 @@
                       <h5 class="text-left">Forma de pago</h5>
                       <div class="card w-100">
                         <div class="card-body">
-                          <input type="radio" onclick="deplegarTarjeta()" name="tarjeta" value="tarjeta">
+                          <input type="radio" class="tarjetaExpand" name="select" value="tarjeta" id="tarjeta">
                           <label for="tarjeta">Tarjeta de crédito o débito</label><br>
                           <img class="m-2" width="100px" src="img/visa.png">
                           <img class="m-2" width="100px" src="img/master.png">
@@ -154,19 +172,22 @@
                       </div>
                       <div class="card w-100">
                         <div class="card-body">
-                          <input type="radio" onclick="deplegarTransferencia()" name="transferencia" value="transferencia">
+                          <input type="radio" class="transferenciaExpand" name="select" value="transferencia"
+                            id="transferencia">
                           <label for="transferencia">Transferencia bancaria</label><br>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="card w-50" id="tarjeta" class="collapse">
+                  <div class="card w-50 showTarjeta" style="display:none">
                     <div class="card-body">
                       <h5 class="text-left">Datos de la tarjeta</h5></br>
+                      <p id=datosTarjeta></p>
                       <form>
                         <div class="form-group">
                           <label for="formGroupExampleInput">Número de tarjeta</label>
-                          <input type="text" class="form-control" id="numero" placeholder="Número de tarjeta">
+                          <input type="number" class="form-control" id="numero" placeholder="Número de tarjeta"
+                            autocomplete="off">
                         </div>
                         <div class="form-group">
                           <div class="form-group">
@@ -176,7 +197,7 @@
                           </div>
                           <div class="form-group">
                             <label for="formGroupExampleInput">Código de seguridad</label>
-                            <input type="password" class="form-control" id="seguridad" max="3">
+                            <input type="password" class="form-control" id="seguridad" maxlength="3" autocomplete="off">
                             <img class="m-2" width="30px" src="img/codigo.png">
                             <small class="text-muted">3 útimos dígitos en el reverso</small>
                           </div>
@@ -184,21 +205,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="card w-50" id="transferencia" class="collapse">
+                <div class="card w-50 showTransferencia" id="transferencia" style="display:none">
                   <div class="card-body">
                     <h5 class="text-left">Transferencia bancaria</h5></br>
                     <form>
                       <div class="form-group">
                         <label for="formGroupExampleInput">Beneficiario</label>
-                        <input type="text" class="form-control" id="beneficiario" placeholder="Nombre del Beneficiario">
+                        <input type="text" class="form-control" id="beneficiario" placeholder="Nombre del Beneficiario"
+                          autocomplete="off">
                       </div>
                       <div class="form-group">
                         <label for="formGroupExampleInput">Banco</label>
-                        <input type="text" class="form-control" id="banco" placeholder="Nombre del Banco">
+                        <input type="text" class="form-control" id="banco" placeholder="Nombre del Banco"
+                          autocomplete="off">
                       </div>
                       <div class="form-group">
                         <label for="formGroupExampleInput">Concepto</label>
-                        <input type="text" class="form-control" id="concepto" placeholder="Concepto">
+                        <input type="text" class="form-control" id="concepto" placeholder="Concepto" autocomplete="off">
                       </div>
                     </form>
                   </div>
@@ -206,7 +229,7 @@
                 <div class="modal-footer">
                   <p id="errorformadepago"></p>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="submit" id="formadepagovalido" class="btn btn-primary" onclick='validarpago()'>Aceptar</button>
+                  <button type="submit" id="formadepagovalido" class="btn btn-primary">Aceptar</button>
                 </div>
               </div>
             </div>

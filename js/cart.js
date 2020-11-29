@@ -10,7 +10,7 @@ function showCartList(cartArray) {
         let cart = cartArray.articles[i];
 
         htmlContentToAppend += `
-            <tr>
+            <tr id="eliminar">
                 <td>
                     <img src= ${cart.src} width=100>
                 </td>
@@ -26,7 +26,7 @@ function showCartList(cartArray) {
                     <p id="totalUnitario"> </p>
                 </td>
                 <td>
-                    <button class="btn btn-danger" onclick="eliminar()" ><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-danger" onclick="eliminar()"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         `
@@ -71,7 +71,7 @@ function calcularTotal(total, subtotal, envio) {
 }
 
 function eliminar() {
-    var eliminarArticulo = document.getElementsById("btn-danger")
+    var eliminarArticulo = document.getElementById("eliminar").innerHTML;
     for (var i = 0; i < eliminarArticulo.length; i++) {
         var eliminar = eliminarArticulo[i];
         eliminar.addEventListener("click", function (event) {
@@ -81,14 +81,40 @@ function eliminar() {
     }
 }
 
-function validateForm() {
-    var datos = document.forms["formdatos"]["datos"].value;
-    if (datos == "") {
-        document.getElementById("errordatos").innerHTML = "Ingresar todos los datos";
-        alert("Ingresar todos los datos")
-        return false;
-    }
+function validarTotal() {
+    var costoAviso = document.getElementById("costoAviso");
+    var costoSubtotal = document.getElementById("costoSubtotal");
+    if (costoSubtotal.innerHTML = " ") {
+        costoAviso.innerHTML = "Debe seleccionar un artículo";
+    } else costoAviso.innerHTML = " ";
 }
+
+function validarDatos() {
+    (function () {
+        // Selecciono los elementos que quiero validar
+        var forms = document.getElementsByClassName("needs-validation");
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+            }, false);
+        });
+    })();
+}
+
+function validarEnvio() {
+    var errorenvio = document.getElementById("errorenvio");
+    if (document.getElementById("premium").checked) {
+    } else if (document.getElementById("express").checked) {
+    } else if (document.getElementById("standard").checked) {
+        errorenvio.innerHTML = " ";
+    } else errorenvio.innerHTML = "Debe seleccionar método de envío";
+    return false;
+}
+
 
 $(document).ready(function () {
     $("#show").click(function () {
@@ -96,31 +122,17 @@ $(document).ready(function () {
     });
 });
 
-function desplegarTarjeta() {
-    $(document.getElementById("tarjeta").collapse("show"));
-    $(document.getElementById("transferencia").collapse("hide"));
-}
+// Seleccionar pago con tarjeta
+$(".tarjetaExpand").click(function () {
+    $(".showTarjeta").show();
+    $(".showTransferencia").hide();
+});
 
-function desplegarTransferencia() {
-    $(document.getElementById("transferencia").collapse("show"));
-    $(document.getElementById("tarjeta").collapse("hide"));
-}
-
-function validarpago() {
-    var pago = document.getElementById("pago");
-    var errorformadepago = document.getElementById("errorformadepago");
-    for (i = 0; i < pago.length; i++) {
-        if (pago[i].checked) {
-            errorformadepago.innerHTML = "";
-            window.location.href = "cart.html";
-        }
-        else {
-            errorformadepago.innerHTML = "Debe seleccionar forma de pago";
-        }
-    }
-}
-
-
+// Seleccionar pago con transferencia bancaria
+$(".transferenciaExpand").click(function () {
+    $(".showTransferencia").show();
+    $(".showTarjeta").hide();
+});
 
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -136,19 +148,3 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 });
 
-
-//<p id="totalUnitario"><p>
-//<button type="button" onclick="totalUnitario(${cart.unitCost})">Ver</button>
-//function validarEnvio() {
-    //var valido = false
-    //var x = document.getElementsByName("tipoEnvio").document.getElementsByName("envio")
-    //for (var i = 0; i < x; i++) {
-        //if (x[i].checked) {
-            //valido = true;
-            //break;
-        //}
-        //else {
-            //errorenvio.innerHTML = "Debe seleccionar metodo de envio";
-        //}
-    //}
-//}

@@ -50,11 +50,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.getElementById("keyNombre").innerHTML = sessionStorage.getItem("keyNombre");
 });
 
-function buscar() {
-  let textBox = document.getElementById("busqueda");
-  textBox.addEventListener("keypress", (event) => {
-      console.log(`key=${event.key},code=${event.code}`);
-  });
-}
-
 
